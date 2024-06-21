@@ -8,7 +8,7 @@ function App() {
     <div className='flex justify-center bg-white align-middle pt-4 pb-10'>
       <h1 className='text-2xl text-red-500 font-bold'>ARE YOU DISILLUSIONED?</h1>
     </div>
-    <FormComponent />
+    <div className="p-4"><FormComponent /></div>
     </>
   )
 }

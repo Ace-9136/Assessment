@@ -7,6 +7,7 @@ const FormComponent = () => {
     const [value, setValue] = useState(null);
     const [questionNo, setQuestionNo] = useState(0);
     const [formData, setFormData] = useState([0, 0, 0, 0]);
+
     const marks = [
         { value: 0, label: 'Strongly Disagree' },
         { value: 25, label: 'Disagree' },
@@ -16,23 +17,17 @@ const FormComponent = () => {
     ];
 
     const handleNext = (res) => {
-        console.log(res)
-        if (questionNo < questions.length-1) {
-            setFormData(prevFormData => {
-                const updatedFormData = [...prevFormData];
-                updatedFormData[questionNo] = res;
-                return updatedFormData;
-            });
+        setFormData((prevFormData) => {
+            const updatedFormData = [...prevFormData];
+            updatedFormData[questionNo] = res;
+            return updatedFormData;
+        });
+
+        if (questionNo < questions.length - 1) {
             setQuestionNo(questionNo + 1);
             setValue(null);
-        }
-        if(questionNo===questions.length-1){
-            setFormData(prevFormData => {
-                const updatedFormData = [...prevFormData];
-                updatedFormData[questionNo] = res;
-                return updatedFormData;
-            });
-            setQuestionNo(questionNo+1);
+        } else if (questionNo === questions.length - 1) {
+            setQuestionNo(questionNo + 1);
         }
     };
 
@@ -47,15 +42,15 @@ const FormComponent = () => {
         setValue(newValue);
         setTimeout(() => {
             handleNext(newValue);
-        }, 500); 
+        }, 500);
     };
 
     const questions = [
         { text: 'I have ambitious aims of making a difference.' },
         { text: 'My leadership journey has progressed as I anticipated.' },
-        { text: 'I have spent fewer than 4 years in full time service or ministry.' },
+        { text: 'I have spent fewer than 4 years in full-time service or ministry.' },
         { text: 'My plans are likely to succeed.' },
-        { text: 'Done' }
+        { text: 'Done' },
     ];
 
     return (
@@ -77,7 +72,7 @@ const FormComponent = () => {
                     <div className="rounded-lg overflow-hidden">
                         <LinearProgress variant="determinate" value={0} sx={{ height: 10 }} />
                     </div>
-                    <p className='mx-auto text-sm md:text-lg font-semibold'>CYNICAL </p>
+                    <p className='mx-auto text-sm md:text-lg font-semibold'>CYNICAL</p>
                 </div>
                 <div className='flex flex-col p-4'>
                     <div className="rounded-lg overflow-hidden">
@@ -90,25 +85,44 @@ const FormComponent = () => {
                 <div>
                     <div className='flex flex-col justify-center bg-white align-middle p-4 pb-10 my-5'>
                         <h3 className='text-2xl text-red-500 mt-10 mx-auto '>{questionNo + 1}/4</h3>
-                        <p className='mx-auto text-2xl mt-10 font-semibold'>{questions[questionNo].text}</p>
+                        <p className="mx-auto text-2xl mt-10 font-semibold text-center">
+                            {questions[questionNo].text}
+                        </p>
                     </div>
-                    <div className='mx-20 md:mx-40 mt-20'>
-                        <Slider
-                            aria-label="Restricted values"
-                            onChange={handleChange}
-                            value={value}
-                            defaultValue={0}
-                            step={25}
-                            marks={marks}
-                            sx={{
-                            color: 'black',
-                            '& .MuiSlider-markLabel': {
-                                fontSize: ['0.65rem','1.25rem'], 
-                            },
-                            }}
-                        />
+                    <div className='mx-0 md:mx-40 mt-20'>
+                        <div className='mx-8 pl-2'>
+                            <Slider
+                                aria-label="Restricted values"
+                                onChange={handleChange}
+                                value={value}
+                                defaultValue={0}
+                                step={25}
+                                marks={marks}
+                                sx={{
+                                    color: '#8fcbd3',
+                                    height: "10px",
+                                    marginBottom: "0px",
+                                    '& .MuiSlider-markLabel': {
+                                        fontSize: ['0.65rem', '1.25rem'],
+                                        '@media (max-width:600px)': {
+                                            display: 'none',
+                                        },
+                                    },
+                                }}
+                            />
+                        </div>
+                        <div className='flex flex-row md:hidden w-fit gap-4 items-center mt-0'>
+                            {marks.map((mark, index) => (
+                                <div
+                                    key={index}
+                                    style={{ fontSize: '13px' }}
+                                    className={`text-center font-semibold ${value === mark.value ? 'text-custom-cyanBlue' : 'text-gray-700'}`}
+                                >
+                                    {mark.label}
+                                </div>
+                            ))}
+                        </div>
                     </div>
-
                 </div>
             )}
             {questionNo === 4 && (
@@ -118,15 +132,27 @@ const FormComponent = () => {
                 </div>
             )}
             <div className='flex justify-between mt-16'>
-                <Button variant="text" startIcon={<ArrowBackIcon />} onClick={handlePrev} disabled={questionNo === 0} sx={{ color: 'black' }}>
+                <Button
+                    variant="text"
+                    startIcon={<ArrowBackIcon />}
+                    onClick={handlePrev}
+                    disabled={questionNo === 0}
+                    sx={{ color: 'black' }}
+                >
                     PREV
                 </Button>
-                <Button variant="text" endIcon={<ArrowForwardIcon />} onClick={() => handleNext(value)} disabled={value === null} sx={{ color: 'black' }}>
+                <Button
+                    variant="text"
+                    endIcon={<ArrowForwardIcon />}
+                    onClick={() => handleNext(value)}
+                    disabled={value === null}
+                    sx={{ color: 'black' }}
+                >
                     NEXT
                 </Button>
             </div>
         </div>
     );
-}
+};
 
 export default FormComponent;

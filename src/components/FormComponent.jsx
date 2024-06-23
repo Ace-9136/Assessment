@@ -90,7 +90,7 @@ const FormComponent = () => {
                         </p>
                     </div>
                     <div className='mx-0 md:mx-40 mt-20'>
-                        <div className='mx-8 pl-2'>
+                        <div className='mx-4 pl-2'>
                             <Slider
                                 aria-label="Restricted values"
                                 onChange={handleChange}
@@ -103,7 +103,7 @@ const FormComponent = () => {
                                     height: "10px",
                                     marginBottom: "0px",
                                     '& .MuiSlider-markLabel': {
-                                        fontSize: ['1.0rem', '1.25rem'],
+                                        fontSize: ['0.80rem', '1.25rem'],
                                     },
                                 }}
                             />

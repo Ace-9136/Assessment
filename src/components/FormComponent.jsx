@@ -9,11 +9,11 @@ const FormComponent = () => {
     const [formData, setFormData] = useState([0, 0, 0, 0]);
 
     const marks = [
-        { value: 0, label: 'Strongly Disagree' },
+        { value: 0, label: <span className="flex flex-col md:flex-row"> <span>Strongly&nbsp;</span> Disagree</span> },
         { value: 25, label: 'Disagree' },
         { value: 50, label: 'Neutral' },
         { value: 75, label: 'Agree' },
-        { value: 100, label: 'Strongly Agree' },
+        { value: 100, label: <span className="md:whitespace-nowrap whitespace-pre-line">Strongly Agree</span> },
     ];
 
     const handleNext = (res) => {
@@ -103,25 +103,12 @@ const FormComponent = () => {
                                     height: "10px",
                                     marginBottom: "0px",
                                     '& .MuiSlider-markLabel': {
-                                        fontSize: ['0.65rem', '1.25rem'],
-                                        '@media (max-width:600px)': {
-                                            display: 'none',
-                                        },
+                                        fontSize: ['1.0rem', '1.25rem'],
                                     },
                                 }}
                             />
                         </div>
-                        <div className='flex flex-row md:hidden w-fit gap-4 items-center mt-0'>
-                            {marks.map((mark, index) => (
-                                <div
-                                    key={index}
-                                    style={{ fontSize: '13px' }}
-                                    className={`text-center font-semibold ${value === mark.value ? 'text-custom-cyanBlue' : 'text-gray-700'}`}
-                                >
-                                    {mark.label}
-                                </div>
-                            ))}
-                        </div>
+                        
                     </div>
                 </div>
             )}
